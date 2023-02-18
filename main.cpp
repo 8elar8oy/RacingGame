@@ -4,9 +4,11 @@
 #include "Road.h"
 #include "Player.h"
 #include "Text.h"
+#include "ctime"
 using namespace sf;
 int main()
 {
+	srand(time(nullptr));
 	RenderWindow window(VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), WINDOW_TITLE, Style::Titlebar | Style::Close);
 	window.setFramerateLimit(60);
 	window.setPosition(Vector2i{ (1920 - (int)WINDOW_WIDTH) / 2, 0 });
@@ -23,28 +25,44 @@ int main()
 	SurfaceInit(road1, Vector2f{ 100.f, -WINDOW_HEIGHT }, "road1.jpg", 100.f);
 	Player player;
 	playerInit(player, PLAYER_START_POS, "carpng.png");
-	Obstacle box,box1,box2;
-	srand(time(nullptr));
-	int i = rand() % 4;
-	int j = rand() % 4;
-	int l = rand() % 4;
+	//Obstacle box,box1,box2;
+	Obstacle obs[3];
+	ObstacleInit(obs[0], texture_arr[0]);
+	for (int i = 1; i < 3; i++)
+	{
+		ObstacleInit(obs[i], texture_arr[i]);
 	
-	while ((j == i) || (j==l) || (i==l)) {
-		i = rand() % 4;
-		j = rand() % 4;
-		l = rand() % 4;
-	}
+		if (obs[i].sprite.getPosition() == obs[i - 1].sprite.getPosition()) {
+			if (obs[i].sprite.getPosition().x == posx_arr[3]) {
+				obs[i].sprite.setPosition(posx_arr[2], obs[i].sprite.getPosition().y);
+			}
+			
+			
 
-	ObstacleInit(box,pos_arr[i],texture_arr[i]);
-	ObstacleInit(box1, pos_arr1[j], texture_arr[j]);
-	ObstacleInit(box2, pos_arr2[l], texture_arr[l]);
+		}
+	}
+	/*int i = rand() % 4;
+	ObstacleInit(box,texture_arr[i]);
+	ObstacleInit(box1, texture_arr[i]);
+	ObstacleInit(box2, texture_arr[i]);*/
 	while (window.isOpen())
 	{
 		checkEvents(window);
-		updateGame(road, sand, grass, road1, sand1, grass1, player,box,box1,box2,healthText);
-
+		updateGame(road, sand, grass, road1, sand1, grass1, player,obs[0],obs[1],obs[2]);
+		FloatRect playerHitBox = player.sprite.getGlobalBounds();
+		FloatRect obsHitBox[]{ (obs[0].sprite.getGlobalBounds()),( obs[1].sprite.getGlobalBounds()), (obs[2].sprite.getGlobalBounds()) };
+		for (int i = 0; i < 4; i++)
+		{
+			if (playerHitBox.intersects(obsHitBox[i]))
+			{
+				health = health - 1;
+				healthText.setString(std::to_string(health));
+			}
+		}
+	
+		
 		/*checkCollisions();*/
-		drawGame(window, road, road1, sand, sand1, grass, grass1, player,box,box1,box2,healthText);
+		drawGame(window, road, road1, sand, sand1, grass, grass1, player,obs[0],obs[1],obs[2],healthText);
 	}
 	return 0;
 }

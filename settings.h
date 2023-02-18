@@ -13,11 +13,10 @@ float CAR_SPEED = 10.f;
 Vector2f PLAYER_START_POS{ (WINDOW_WIDTH - 300) / 2,WINDOW_HEIGHT - 200 };
 //препятствия
 const float CAR_OBSTACLE_SPEED = 20.f;
-Vector2f pos_arr[4]{ (Vector2f{130.f,-200.f}),(Vector2f{230.f,-200.f}) ,(Vector2f{ 350.f,-200.f }), (Vector2f{ 460.f,-200.f }) };
-Vector2f pos_arr1[4]{ (Vector2f{130.f,400.f}),(Vector2f{230.f,-200.f}), (Vector2f{350.f,400.f}),(Vector2f{460.f,400.f}) };
-Vector2f pos_arr2[4]{ (Vector2f{130.f,800.f}),(Vector2f{230.f,-200.f}),(Vector2f{350.f,800.f}),(Vector2f{460.f,800.f}) };
-Vector2f pos_arr3[4]{ (Vector2f{130.f,1200.f}),(Vector2f{230.f,1200.f}) ,(Vector2f{ 350.f,1200.f }), (Vector2f{ 460.f,1200.f }) };
-std::string texture_arr[]{ "box1.png","box.png","box2.png" ,"box3.png","box4.png","box6.png"};
+const float posx_arr[4]{ (130.f),(230.f) ,(350.f), (460.f) };
+const float posy_arr[4]{ (-200.f),(-400.f) ,(-600.f ), (-800.f ) };
+std::string texture_arr[]{ "box1.png","box.png","box4.png","box6.png"};
+Vector2f obsPos;
 //текст 
 const float CHAR_SIZE = 64;
 int health = 3;

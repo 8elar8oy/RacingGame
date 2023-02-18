@@ -16,26 +16,15 @@ void checkEvents(RenderWindow& window) {
 	}
 }
 
-void updateGame(Surface& Grass1, Surface& Grass2, Surface& Sand1, Surface& Sand2, Surface& Road1, Surface& Road2, Player& player,Obstacle& box,Obstacle& box1,Obstacle& box2, Text& healthText) {
+void updateGame(Surface& Grass1, Surface& Grass2, Surface& Sand1, Surface& Sand2, Surface& Road1, Surface& Road2, Player& player,Obstacle& box,Obstacle& box1,Obstacle& box2) {
 	playerUpdate(player);
 	SurfaceUpdate(Grass1, Grass2);
 	SurfaceUpdate(Sand1, Sand2);
 	SurfaceUpdate(Road1, Road2);
-	srand(time(nullptr));
-	int i = rand() % 4;
-	int j = rand() % 4;
-	int l = rand() % 4;
-	while ((j == i) || (j == l) || (i == l)) {
-		i = rand() % 4;
-		j = rand() % 4;
-		l = rand() % 4;
-	}
-	ObstacleUpdate(box,i);
-	ObstacleUpdate(box1,j);
-	ObstacleUpdate(box2, l);
-	updateHealth(player, healthText, box);
-	updateHealth(player, healthText, box1);
-	updateHealth(player, healthText, box2);
+	ObstacleUpdate(box);
+	ObstacleUpdate(box1);
+	ObstacleUpdate(box2);
+	
 }
 void checkCollisions() {
 
