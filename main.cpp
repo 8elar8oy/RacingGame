@@ -27,24 +27,16 @@ int main()
 	playerInit(player, PLAYER_START_POS, "carpng.png");
 	//Obstacle box,box1,box2;
 	Obstacle obs[3];
-	ObstacleInit(obs[0], texture_arr[0]);
-	for (int i = 1; i < 3; i++)
+	
+	for (int i = 0; i < 3; i++)
 	{
 		ObstacleInit(obs[i], texture_arr[i]);
-	
-		if (obs[i].sprite.getPosition() == obs[i - 1].sprite.getPosition()) {
-			if (obs[i].sprite.getPosition().x == posx_arr[3]) {
-				obs[i].sprite.setPosition(posx_arr[2], obs[i].sprite.getPosition().y);
-			}
-			
-			
-
+		while((obs[i].sprite.getPosition().x == obs[i - 1].sprite.getPosition().x) || (obs[i].sprite.getPosition().y == obs[i - 1].sprite.getPosition().y)) {
+			ObslatcleSpawn(obs[i-1]);
 		}
+		
 	}
-	/*int i = rand() % 4;
-	ObstacleInit(box,texture_arr[i]);
-	ObstacleInit(box1, texture_arr[i]);
-	ObstacleInit(box2, texture_arr[i]);*/
+	
 	while (window.isOpen())
 	{
 		checkEvents(window);

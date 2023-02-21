@@ -9,10 +9,11 @@ struct Obstacle {
 
 void ObslatcleSpawn(Obstacle& obs) {
 	int x ,y;
-	x = rand() % 4;
-	y = rand() % 4;
 	
-	Vector2f obsPos(posx_arr[x], posy_arr[y]);
+	x = rand() % 4;
+	//y = rand() % 4;
+	
+	Vector2f obsPos(posx_arr[x], posy_arr[x]);
 	obs.sprite.setPosition(obsPos);
 	
 }
